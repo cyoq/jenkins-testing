@@ -79,7 +79,7 @@ def installPipDeps() {
     powershell "If (Test-Path python-greetings) { Remove-Item -Recurse python-greetings; }"
     powershell "git clone https://github.com/mtararujs/python-greetings.git"
     powershell 'if ((Test-Path python-greetings/requirements.txt) -eq $false) { Write-Host "requirements.txt was not found. Exiting..."; exit 1; }'
-    powershell 'pip install -r requirements.txt'
+    powershell 'pip install -r python-greetings/requirements.txt'
 }
 
 def deploy(String environment, int port){
