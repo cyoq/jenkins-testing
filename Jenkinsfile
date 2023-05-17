@@ -77,7 +77,7 @@ def installPipDeps() {
     echo "[*] Installing all required pip dependencies."
     powershell "ls"
     powershell "git clone https://github.com/mtararujs/python-greetings; cd python-greetings"
-    powershell 'if ((Test-Path .\\requirements.txt) -eq $false) { Write-Host "requirements.txt was not found. Exiting..."; exit 1; }'
+    powershell 'if ((Test-Path requirements.txt) -eq $false) { Write-Host "requirements.txt was not found. Exiting..."; exit 1; }'
     powershell 'pip install -r requirements.txt'
 }
 
