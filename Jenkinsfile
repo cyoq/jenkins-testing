@@ -11,13 +11,13 @@ pipeline {
                 }
             }
         }
-        // stage('deploy-to-dev') {
-        //     steps {
-        //         script{
-        //             deploy("DEV", 1010)
-        //         }
-        //     }
-        // }
+        stage('deploy-to-dev') {
+            steps {
+                script{
+                    deploy("dev", 1010)
+                }
+            }
+        }
         // stage('tests-on-dev') {
         //     steps {
         //         script{
@@ -86,9 +86,10 @@ def installPipDeps() {
 }
 
 def deploy(String environment, int port){
-    echo "Deployment to ${environment} has started.."
-    sh "pm2 delete \"books-${environment}\""
-    sh "pm2 start -n \"books-${environment}\" index.js -- ${port}"
+    echo "[*] Deployment to ${environment} has started..."
+    powershell "pm2 delete greetings-app-${environment}; exit 0"
+    // Needs double escape for powershell to work
+    powershell "pm2 start app.py --name greetings-app-${environment} -- -- --port ${port}"
 }
 
 def test(String test_set, String environment){
