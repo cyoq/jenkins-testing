@@ -14,7 +14,7 @@ pipeline {
         stage('deploy-to-dev') {
             steps {
                 script{
-                    deploy("dev", 1010)
+                    deploy("dev", 7001)
                 }
             }
         }
