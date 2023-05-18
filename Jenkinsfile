@@ -70,8 +70,6 @@ pipeline {
     }
 }
 
-// for windows: bat "npm.."
-// for linux/macos: sh "npm .."
 
 def installPipDeps() {
     echo "[*] Installing all required pip dependencies."
