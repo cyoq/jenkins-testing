@@ -18,13 +18,13 @@ pipeline {
                 }
             }
         }
-        // stage('tests-on-dev') {
-        //     steps {
-        //         script{
-        //             test("BOOKS", "DEV")
-        //         }
-        //     }
-        // }
+        stage('tests-on-dev') {
+            steps {
+                script{
+                    test("dev")
+                }
+            }
+        }
         // stage('deploy-to-staging') {
         //     steps {
         //         script{
@@ -85,14 +85,16 @@ def installPipDeps() {
     powershell 'pip install -r requirements.txt'
 }
 
-def deploy(String environment, int port){
+def deploy(String environment, int port) {
     echo "[*] Deployment to ${environment} has started..."
     powershell "pm2 delete greetings-app-${environment}; exit 0"
     // Needs double escape for powershell to work
     powershell "pm2 start app.py --name greetings-app-${environment} -- -- --port ${port}"
 }
 
-def test(String test_set, String environment){
-    echo "Testing ${test_set} test set on ${environment} has started.."
-    sh "npm run ${test_set} ${test_set}_${environment}"
+def test(String environment) {
+    echo "[*] Testing on ${environment} has started..."
+    git branch: 'main', url: 'https://github.com/mtararujs/course-js-api-framework.git'
+    powershell "npm install"
+    powershell "npm run greetings greetings_${environment}"
 }
