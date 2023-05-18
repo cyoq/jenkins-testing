@@ -76,9 +76,13 @@ pipeline {
 def installPipDeps() {
     echo "[*] Installing all required pip dependencies."
     powershell "ls"
-    powershell "If (Test-Path python-greetings) { Remove-Item -Recurse python-greetings; }"
-    powershell "git clone https://github.com/mtararujs/python-greetings.git"
-    powershell 'if ((Test-Path python-greetings/requirements.txt) -eq $false) { Write-Host "requirements.txt was not found. Exiting..."; exit 1; }'
+    git branch: 'main', url: 'https://github.com/mtararujs/python-greetings.git'
+    powershell '''
+        if ((Test-Path python-greetings/requirements.txt) -eq $false) { 
+            Write-Host "requirements.txt was not found. Exiting...";
+            exit 1;
+        }
+    '''
     powershell 'pip install -r python-greetings/requirements.txt'
 }
 
