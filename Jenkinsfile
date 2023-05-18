@@ -75,7 +75,7 @@ pipeline {
 
 def installPipDeps() {
     echo "[*] Installing all required pip dependencies."
-    git branch: 'main', url: 'https://github.com/mtararujs/python-greetings.git'
+    git branch: 'main', url: 'https://github.com/mtararujs/python-greetings.git', path: "repo/python-greetings"
     powershell '''
         if ((Test-Path requirements.txt) -eq $false) { 
             Write-Host "requirements.txt was not found. Exiting...";
