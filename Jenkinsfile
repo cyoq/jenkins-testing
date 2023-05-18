@@ -25,48 +25,48 @@ pipeline {
                 }
             }
         }
-        // stage('deploy-to-staging') {
-        //     steps {
-        //         script{
-        //             deploy("STG", 2020)
-        //         }
-        //     }
-        // }
-        // stage('tests-on-staging') {
-        //     steps {
-        //         script{
-        //             test("BOOKS", "STG")
-        //         }
-        //     }
-        // }
-        // stage('deploy-to-preprod') {
-        //     steps {
-        //         script{
-        //             deploy("PRD", 3030)
-        //         }
-        //     }
-        // }
-        // stage('tests-on-preprod') {
-        //     steps {
-        //         script{
-        //             test("BOOKS", "PRD")
-        //         }
-        //     }
-        // }
-        // stage('deploy-to-prod') {
-        //     steps {
-        //         script{
-        //             deploy("PRD", 3030)
-        //         }
-        //     }
-        // }
-        // stage('tests-on-prod') {
-        //     steps {
-        //         script{
-        //             test("BOOKS", "PRD")
-        //         }
-        //     }
-        // }
+        stage('deploy-to-staging') {
+            steps {
+                script{
+                    deploy("staging", 7002)
+                }
+            }
+        }
+        stage('tests-on-staging') {
+            steps {
+                script{
+                    test("staging")
+                }
+            }
+        }
+        stage('deploy-to-preprod') {
+            steps {
+                script{
+                    deploy("preprod", 7003)
+                }
+            }
+        }
+        stage('tests-on-preprod') {
+            steps {
+                script{
+                    test("preprod")
+                }
+            }
+        }
+        stage('deploy-to-prod') {
+            steps {
+                script{
+                    deploy("prod", 7004)
+                }
+            }
+        }
+        stage('tests-on-prod') {
+            steps {
+                script{
+                    test("prod")
+                }
+            }
+        }
     }
 }
 
@@ -96,7 +96,7 @@ def deploy(String environment, int port) {
 
 def test(String environment) {
     echo "[*] Testing on ${environment} has started..."
-    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/course-js-api-framework.git'
+    git branch: 'main', url: 'https://github.com/mtararujs/course-js-api-framework.git'
     powershell "npm install"
     powershell "npm run greetings greetings_${environment}"
 }
