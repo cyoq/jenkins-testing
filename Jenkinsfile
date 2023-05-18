@@ -75,23 +75,23 @@ pipeline {
 
 def installPipDeps() {
     echo "[*] Installing all required pip dependencies."
-    dir ('foo') {
+    dir ('pg') {
         git branch: 'main', url: 'https://github.com/mtararujs/python-greetings.git'
     }
     powershell '''
-        if ((Test-Path requirements.txt) -eq $false) { 
+        if ((Test-Path pg/requirements.txt) -eq $false) { 
             Write-Host "requirements.txt was not found. Exiting...";
             exit 1;
         }
     '''
-    powershell 'pip install -r requirements.txt'
+    powershell 'pip install -r pg/requirements.txt'
 }
 
 def deploy(String environment, int port) {
     echo "[*] Deployment to ${environment} has started..."
     powershell "pm2 delete greetings-app-${environment}; exit 0"
     // Needs double escape for powershell to work
-    powershell "pm2 start app.py --name greetings-app-${environment} -- -- --port ${port}"
+    powershell "pm2 start pg/app.py --name greetings-app-${environment} -- -- --port ${port}"
 }
 
 def test(String environment) {
