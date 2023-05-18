@@ -78,12 +78,12 @@ def installPipDeps() {
     powershell "ls"
     git branch: 'main', url: 'https://github.com/mtararujs/python-greetings.git'
     powershell '''
-        if ((Test-Path python-greetings/requirements.txt) -eq $false) { 
+        if ((Test-Path requirements.txt) -eq $false) { 
             Write-Host "requirements.txt was not found. Exiting...";
             exit 1;
         }
     '''
-    powershell 'pip install -r python-greetings/requirements.txt'
+    powershell 'pip install -r requirements.txt'
 }
 
 def deploy(String environment, int port){
