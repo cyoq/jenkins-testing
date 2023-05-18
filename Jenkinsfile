@@ -75,7 +75,6 @@ pipeline {
 
 def installPipDeps() {
     echo "[*] Installing all required pip dependencies."
-    powershell "ls"
     git branch: 'main', url: 'https://github.com/mtararujs/python-greetings.git'
     powershell '''
         if ((Test-Path requirements.txt) -eq $false) { 
